@@ -1,3 +1,4 @@
+import 'package:crowd/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,45 +15,50 @@ class WalkThrough extends StatefulWidget {
 class _WalkThroughState extends State {
   int currentPage;
   int pageNumber;
+  String buttonName = "Next";
 
-  final List<String> appBarTitles = ["WELCOME", "INTRO", "PROFILES", "CONTENT"];
   final List<String> pageTitles = [
-    "CROWD",
+    "",
     "Signup easily",
     "Create your profile",
-    "Start meeting new people"
+    ""
   ];
-  final List<String> imageURLs = [
-    "https://adtechresources.com/wp-content/uploads/2020/02/Mobile-Application.jpeg",
-    "https://cdn.pttrns.com/764/8981_f.jpg",
-    "https://cdn.pttrns.com/614/7772_f.jpg",
-    "https://cdn.pttrns.com/614/7773_f.jpg"
+  final List<String> imagePaths = [
+    "lib/assets/crowdapp.png",
+    "lib/assets/crowd.jpg",
+    "lib/assets/profile.jpg",
+    "lib/assets/male-female-avatars.jpg",
   ];
 
   final List<String> imageCaptions = [
-    "Your personal course material",
-    "Just use your SU-Net account",
-    "Update your flutter knowledge",
-    "Connect with fellow flutterists"
+    "Missed to get lost in the crowd?",
+    "To see familiar faces or meet new people?",
+    "Get a username to be recognized",
+    "Stay anonymous to blend in the crowd"
   ];
 
-  void start(){
+  void start() {
     setState(() {
-      Navigator.pushReplacementNamed(context, '/welcome');
-      //Navigator.pushNamed(context, '/welcome');
+      //Navigator.pushReplacementName(context, "/welcome");
+      Navigator.pushNamedAndRemoveUntil(context, '/welcome', (_) => false);
     });
   }
-  
+
   void nextPage() {
     setState(() {
-      if (currentPage != pageNumber) currentPage++;
-      else if(currentPage != pageNumber) start();
+      if (currentPage != pageNumber) {
+        currentPage++;
+        if (currentPage == pageNumber) buttonName = "Get Started";
+      } else if (currentPage == pageNumber) start();
     });
   }
 
   void prevPage() {
     setState(() {
-      if (currentPage != 1) currentPage--;
+      if (currentPage != 1) {
+        currentPage--;
+        buttonName = "Next";
+      }
     });
   }
 
@@ -66,18 +72,7 @@ class _WalkThroughState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppBar(
-        backgroundColor: Colors.grey.shade400,
-        centerTitle: true,
-        title: Text(
-          appBarTitles[currentPage - 1],
-          style: TextStyle(
-            color: Colors.grey.shade600,
-            letterSpacing: -1,
-          ),
-        ),
-      ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.fromLTRB(20, 24, 20, 0),
         child: Column(
@@ -85,47 +80,42 @@ class _WalkThroughState extends State {
           children: [
             Text(
               pageTitles[currentPage - 1],
-              style: TextStyle(
-                color: Colors.teal.shade300,
-                letterSpacing: -1,
-                fontSize: 32,
-                fontWeight: FontWeight.w800,
-              ),
+              style: kHeadingTextStyle,
             ),
-            CircleAvatar(
-              backgroundImage: NetworkImage(imageURLs[currentPage - 1]),
-              radius: 280,
+            Image(
+              image: AssetImage(
+                imagePaths[currentPage - 1],
+              ),
             ),
             Text(
               imageCaptions[currentPage - 1],
-              style: TextStyle(
-                color: Colors.grey.shade600,
-                letterSpacing: -1,
-                fontSize: 24,
-                fontWeight: FontWeight.w300,
-              ),
+              style: kLabelTextStyle,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                OutlineButton(
-                  color: Colors.teal.shade300,
-                  onPressed: prevPage,
-                  child: Text("Prev",
-                      style: TextStyle(
-                        color: Colors.teal.shade300,
-                      )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    OutlineButton(
+                      color: Colors.teal.shade300,
+                      onPressed: prevPage,
+                      child: Text(
+                        "Prev",
+                        style: kButtonTextStyleCandy,
+                      ),
+                    ),
+                    Text("${currentPage}/${pageNumber}"),
+                    OutlineButton(
+                      color: Colors.teal.shade300,
+                      onPressed: nextPage,
+                      child: Text(
+                        buttonName,
+                        style: kButtonTextStyleSuccess,
+                      ),
+                    ),
+                  ],
                 ),
-                Text("${currentPage}/${pageNumber}"),
-                OutlineButton(
-                  color: Colors.teal.shade300,
-                  onPressed: nextPage,
-                  child: Text("Next",
-                      style: TextStyle(
-                        color: Colors.teal.shade300,
-                      )),
-                ),
-                OutlineButton(onPressed: start)
               ],
             ),
           ],
