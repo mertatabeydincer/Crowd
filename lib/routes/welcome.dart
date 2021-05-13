@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:crowd/utils/styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Welcome extends StatefulWidget {
   @override
@@ -7,16 +8,25 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
-  void goLogin() {
+  void login() {
     setState(() {
       Navigator.pushNamed(context, '/login');
     });
   }
 
-  void goSignUp() {
+  void signUp() {
     setState(() {
       Navigator.pushNamed(context, '/signup');
     });
+  }
+
+  void anonymousLogin() async {
+    String initialRoute;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print("Login status is Anonymous and ${prefs.getBool("anonymousLogin")}");
+    prefs.setBool("anonymousLogin", true);
+    print("Login status is Anonymous and ${prefs.getBool("anonymousLogin")}");
+    Navigator.pushNamedAndRemoveUntil(context, '/landingPage', (_) => false);
   }
 
   @override
@@ -39,7 +49,7 @@ class _WelcomeState extends State<Welcome> {
                 children: <Widget>[
                   OutlineButton(
                     color: Colors.teal.shade300,
-                    onPressed: goLogin,
+                    onPressed: login,
                     child: Text(
                       "Login",
                       style: kButtonTextStylePrimary,
@@ -47,17 +57,16 @@ class _WelcomeState extends State<Welcome> {
                   ),
                   OutlineButton(
                     color: Colors.teal.shade300,
-                    onPressed: goSignUp,
-                    child: Text("Sign Up",
+                    onPressed: signUp,
+                    child: Text(
+                      "Sign Up",
                       style: kButtonTextStyleCandy,
                     ),
                   ),
                 ],
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '');
-                },
+                onPressed: anonymousLogin,
                 child: Text(
                   "continue as anonymous",
                   style: kButtonTextStyleSuccess,

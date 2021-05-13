@@ -39,7 +39,6 @@ class _WalkThroughState extends State {
 
   void start() {
     setState(() {
-      //Navigator.pushReplacementName(context, "/welcome");
       Navigator.pushNamedAndRemoveUntil(context, '/welcome', (_) => false);
     });
   }

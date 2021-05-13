@@ -18,7 +18,7 @@ class AppColors {
   static const Color blue4 = const Color(0xff62a1cc);
   static const Color blue5 = const Color(0xff90ffff);
   static const gradientBlue = [blue5, blue4, blue3, blue2, blue1];
-
+  static const Color gray = const Color.fromRGBO(211, 211, 211, 1);
 
   static const Color textColor = const Color(0xFF424242);
   static const Color headingColor = blue1;

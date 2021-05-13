@@ -37,6 +37,12 @@ final kButtonTextStyleCandy = TextStyle(
   letterSpacing: -0.7,
 );
 
+final kButtonTextStyleCandyLarge = TextStyle(
+  color: AppColors.candy,
+  fontSize: 40.0,
+  letterSpacing: -0.7,
+);
+
 final kHeadingTextStyle = TextStyle(
   color: AppColors.headingColor,
   fontWeight: FontWeight.w700,

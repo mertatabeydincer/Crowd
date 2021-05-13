@@ -102,11 +102,6 @@ class _LoginState extends State<Login> {
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
                                   _formKey.currentState.save();
-
-                                  //showAlertDialog("Action", 'Button clicked');
-                                  setState(() {
-                                    attemptCount += 1;
-                                  });
                                 }
                               },
                               child: Padding(
@@ -131,7 +126,7 @@ class _LoginState extends State<Login> {
                     TextButton(
                       child: Text(
                         "Don't you have an account?",
-                        style: kButtonTextStylePrimary,
+                        style: kLinkTextStylePrimary,
                       ),
                       onPressed: () {
                         Navigator.pop(context);
