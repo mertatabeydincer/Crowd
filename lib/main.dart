@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:crowd/routes/settings/privacySettings.dart';
 import 'package:crowd/routes/settings/profileSettings.dart';
 import 'package:crowd/routes/settings/crowdSettings.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,6 +20,7 @@ void main() async {
   print("initializing");
   // handle exceptions caused by making main async
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   String initRoute;
   // init a shared preferences variable
   SharedPreferences prefs = await SharedPreferences.getInstance();
