@@ -1,12 +1,23 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:crowd/utils/colors.dart';
 
 class Notifications extends StatefulWidget {
+  const Notifications({Key key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
   @override
   _Notifications createState() => _Notifications();
 }
 
 class _Notifications extends State<Notifications> {
+
+  Future<void> _setCurrentScreen() async{
+    await widget.analytics.setCurrentScreen(screenName: 'Notifications Page');
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,4 +1,6 @@
 import 'package:crowd/utils/styles.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,11 +10,18 @@ void main() {
 }
 
 class WalkThrough extends StatefulWidget {
+  const WalkThrough({Key key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
   @override
   _WalkThroughState createState() => _WalkThroughState();
 }
 
 class _WalkThroughState extends State {
+
+
+
   int currentPage;
   int pageNumber;
   String buttonName = "Next";

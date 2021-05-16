@@ -1,11 +1,17 @@
 import 'package:crowd/utils/colors.dart';
 import 'package:crowd/utils/styles.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:crowd/routes/profile.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
+  const Settings({Key key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
   @override
   _SettingsState createState() => _SettingsState();
 }
@@ -26,7 +32,10 @@ class _SettingsState extends State<Settings> {
     }
     Navigator.pushNamedAndRemoveUntil(context, '/welcome', (_) => false);
   }
+  Future<void> _setCurrentScreen() async{
+    await widget.analytics.setCurrentScreen(screenName: 'Settings Page');
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

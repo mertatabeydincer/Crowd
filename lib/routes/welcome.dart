@@ -1,8 +1,16 @@
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:crowd/utils/styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class Welcome extends StatefulWidget {
+
+  const Welcome({Key key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+
   @override
   _WelcomeState createState() => _WelcomeState();
 }
@@ -13,6 +21,7 @@ class _WelcomeState extends State<Welcome> {
       Navigator.pushNamed(context, '/login');
     });
   }
+
 
   void signUp() {
     setState(() {
@@ -28,7 +37,10 @@ class _WelcomeState extends State<Welcome> {
     print("Login status is Anonymous and ${prefs.getBool("anonymousLogin")}");
     Navigator.pushNamedAndRemoveUntil(context, '/landingPage', (_) => false);
   }
+  Future<void> _setCurrentScreen() async{
+    await widget.analytics.setCurrentScreen(screenName: 'Welcome Page');
 
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -79,3 +91,4 @@ class _WelcomeState extends State<Welcome> {
     );
   }
 }
+

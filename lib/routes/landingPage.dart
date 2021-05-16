@@ -1,4 +1,6 @@
 import 'package:crowd/utils/colors.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 
 import 'feed.dart';
@@ -8,6 +10,10 @@ import 'package:crowd/routes/profile.dart';
 import 'notifications.dart';
 
 class LandingPage extends StatefulWidget {
+  const LandingPage({Key key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
   @override
   _LandingPageState createState() => _LandingPageState();
 }
@@ -33,7 +39,10 @@ class _LandingPageState extends State<LandingPage> {
       _selectedIndex = index;
     });
   }
+  Future<void> _setCurrentScreen() async{
+    await widget.analytics.setCurrentScreen(screenName: 'Landing Page');
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

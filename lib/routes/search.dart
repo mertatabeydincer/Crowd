@@ -1,8 +1,14 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:crowd/utils/colors.dart';
 
 class Search extends StatefulWidget {
+  const Search({Key key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
   @override
   _SearchState createState() => _SearchState();
 }
@@ -30,7 +36,10 @@ class _SearchState extends State<Search> {
       }
     });
   }
+  Future<void> _setCurrentScreen() async{
+    await widget.analytics.setCurrentScreen(screenName: 'Search Page');
 
+  }
   @override
   void initState() {
     this._getNames();
@@ -43,7 +52,7 @@ class _SearchState extends State<Search> {
       body: Container(
         child: _buildList(),
       ),
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
     );
   }
 

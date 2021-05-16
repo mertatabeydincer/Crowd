@@ -1,14 +1,24 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:crowd/utils/colors.dart';
 import 'package:crowd/utils/styles.dart';
 
 class Feed extends StatefulWidget {
+  const Feed({Key key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+
   @override
   _Feed createState() => _Feed();
 }
 
 class _Feed extends State<Feed> {
+  Future<void> _setCurrentScreen() async{
+    await widget.analytics.setCurrentScreen(screenName: 'Feed Page');
+  }
   @override
   Widget build(BuildContext context) => DefaultTabController(
         length: 4,

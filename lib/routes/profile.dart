@@ -1,4 +1,6 @@
 import 'package:crowd/models/objects.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,6 +8,10 @@ import 'package:crowd/utils/colors.dart';
 import 'package:crowd/utils/styles.dart';
 
 class Profile extends StatefulWidget {
+  const Profile({Key key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -35,6 +41,10 @@ Future<User> _getPreferences() async {
 }
 
 class _ProfileState extends State<Profile> {
+  Future<void> _setCurrentScreen() async{
+    await widget.analytics.setCurrentScreen(screenName: 'Profile Page');
+
+  }
   bool newSettings = false;
   int postCount = 0;
   String name = "", userName = "", biography = "", email = "", gender = "";

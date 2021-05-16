@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -5,6 +7,10 @@ import 'package:crowd/utils/colors.dart';
 import 'package:crowd/utils/styles.dart';
 
 class Login extends StatefulWidget {
+  const Login({Key key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
   @override
   _LoginState createState() => _LoginState();
 }
@@ -13,6 +19,11 @@ class _LoginState extends State<Login> {
   int attemptCount;
   String email, username, password;
   final _formKey = GlobalKey<FormState>();
+
+  Future<void> _setCurrentScreen() async{
+    await widget.analytics.setCurrentScreen(screenName: 'Login Page');
+
+  }
 
   @override
   Widget build(BuildContext context) {

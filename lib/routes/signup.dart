@@ -1,9 +1,15 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:crowd/utils/colors.dart';
 import 'package:crowd/utils/styles.dart';
 import 'package:email_validator/email_validator.dart';
 
 class SignUp extends StatefulWidget {
+  const SignUp({Key key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -12,7 +18,10 @@ class _SignUpState extends State<SignUp> {
   int attemptCount;
   String email, username, password;
   final _formKey = GlobalKey<FormState>();
+  Future<void> _setCurrentScreen() async{
+    await widget.analytics.setCurrentScreen(screenName: 'SignUp Page');
 
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
