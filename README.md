@@ -2,6 +2,10 @@
 
 CS310 - Group Project
 
+Flutter oriented a mobile application project that enables creating both IOS and Android native applications only using one code base. 
+
+As a backend service Google's Firebase is implemented.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
